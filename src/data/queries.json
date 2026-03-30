@@ -1,0 +1,133 @@
+{
+  "datasets": {
+    "hits": {
+      "description": "ClickBench web analytics dataset — 99M rows of anonymized Yandex.Metrica hit data",
+      "columns": ["WatchID", "JavaEnable", "Title", "GoodEvent", "EventTime", "EventDate", "CounterID", "ClientIP", "RegionID", "UserID", "CounterClass", "OS", "UserAgent", "URL", "Referer", "IsRefresh", "RefererCategoryID", "RefererRegionID", "URLCategoryID", "URLRegionID", "ResolutionWidth", "ResolutionHeight", "ResolutionDepth", "FlashMajor", "FlashMinor", "NetMajor", "NetMinor", "UserAgentMajor", "UserAgentMinor", "CookieEnable", "JavascriptEnable", "IsMobile", "Age", "Sex", "Income", "SearchPhrase", "AdvEngineID"],
+      "queries": [
+        {
+          "id": "cb1",
+          "name": "Count by Region",
+          "sql": "SELECT RegionID, COUNT(*) FROM hits GROUP BY RegionID ORDER BY COUNT(*) DESC LIMIT 10",
+          "exactTime": 1820,
+          "approxTime": 195,
+          "exactResult": 99997497,
+          "approxResult": 99845200,
+          "tableRows": [
+            { "category": "RegionID=229", "exact": 18340562, "approx": 18295100, "error": 0.25 },
+            { "category": "RegionID=2", "exact": 11230890, "approx": 11180400, "error": 0.45 },
+            { "category": "RegionID=208", "exact": 7654320, "approx": 7590100, "error": 0.84 },
+            { "category": "RegionID=1", "exact": 6890100, "approx": 6845600, "error": 0.65 },
+            { "category": "RegionID=34", "exact": 4521000, "approx": 4475300, "error": 1.01 },
+            { "category": "RegionID=158", "exact": 3980450, "approx": 4050200, "error": 1.75 },
+            { "category": "RegionID=42", "exact": 3210300, "approx": 3150800, "error": 1.85 },
+            { "category": "RegionID=55", "exact": 2780600, "approx": 2690500, "error": 3.24 }
+          ]
+        },
+        {
+          "id": "cb2",
+          "name": "OS Distribution",
+          "sql": "SELECT OS, COUNT(*) AS c FROM hits GROUP BY OS ORDER BY c DESC LIMIT 10",
+          "exactTime": 1540,
+          "approxTime": 160,
+          "exactResult": 99997497,
+          "approxResult": 99720000,
+          "tableRows": [
+            { "category": "Windows", "exact": 52340100, "approx": 52180300, "error": 0.31 },
+            { "category": "iOS", "exact": 18920500, "approx": 18750000, "error": 0.9 },
+            { "category": "Android", "exact": 15670200, "approx": 15490800, "error": 1.14 },
+            { "category": "Mac OS X", "exact": 7230400, "approx": 7150200, "error": 1.11 },
+            { "category": "Linux", "exact": 3120800, "approx": 3250100, "error": 4.14 },
+            { "category": "Other", "exact": 2715497, "approx": 2899600, "error": 6.78 }
+          ]
+        },
+        {
+          "id": "cb3",
+          "name": "Hourly Event Count",
+          "sql": "SELECT toHour(EventTime) AS hour, COUNT(*) FROM hits GROUP BY hour ORDER BY hour",
+          "exactTime": 2650,
+          "approxTime": 230,
+          "exactResult": 99997497,
+          "approxResult": 99510000,
+          "tableRows": [
+            { "category": "00:00–04:00", "exact": 8320400, "approx": 8290100, "error": 0.36 },
+            { "category": "04:00–08:00", "exact": 12450600, "approx": 12380200, "error": 0.57 },
+            { "category": "08:00–12:00", "exact": 22180900, "approx": 21950300, "error": 1.04 },
+            { "category": "12:00–16:00", "exact": 24560200, "approx": 24280100, "error": 1.14 },
+            { "category": "16:00–20:00", "exact": 19830500, "approx": 19640800, "error": 0.96 },
+            { "category": "20:00–24:00", "exact": 12654897, "approx": 12968500, "error": 2.48 }
+          ]
+        },
+        {
+          "id": "cb4",
+          "name": "Search Phrase Analysis",
+          "sql": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase != '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10",
+          "exactTime": 3200,
+          "approxTime": 280,
+          "exactResult": 12450890,
+          "approxResult": 12150000,
+          "tableRows": [
+            { "category": "bathroom renovation", "exact": 89200, "approx": 88100, "error": 1.23 },
+            { "category": "curtain designs", "exact": 67500, "approx": 64200, "error": 4.89 },
+            { "category": "iphone cases", "exact": 54300, "approx": 51800, "error": 4.6 },
+            { "category": "car insurance", "exact": 48900, "approx": 45100, "error": 7.77 },
+            { "category": "online courses", "exact": 42100, "approx": 40500, "error": 3.8 },
+            { "category": "weather forecast", "exact": 38700, "approx": 35200, "error": 9.04 },
+            { "category": "recipe ideas", "exact": 31200, "approx": 34600, "error": 10.9 }
+          ]
+        },
+        {
+          "id": "cb5",
+          "name": "Mobile vs Desktop",
+          "sql": "SELECT IsMobile, COUNT(*), AVG(ResolutionWidth) FROM hits GROUP BY IsMobile",
+          "exactTime": 1280,
+          "approxTime": 105,
+          "exactResult": 99997497,
+          "approxResult": 99890100,
+          "tableRows": [
+            { "category": "Desktop (IsMobile=0)", "exact": 63240500, "approx": 63180200, "error": 0.1 },
+            { "category": "Mobile (IsMobile=1)", "exact": 36756997, "approx": 36709900, "error": 0.13 }
+          ]
+        }
+      ]
+    },
+    "hits_100m": {
+      "description": "ClickBench hits_100m — 100M row extended analytics dataset",
+      "columns": ["WatchID", "JavaEnable", "Title", "EventTime", "EventDate", "CounterID", "ClientIP", "RegionID", "UserID", "OS", "UserAgent", "URL", "Referer", "IsMobile", "Age", "Sex", "SearchPhrase"],
+      "queries": [
+        {
+          "id": "cb100_1",
+          "name": "Top Counters",
+          "sql": "SELECT CounterID, COUNT(*) AS c FROM hits_100m GROUP BY CounterID ORDER BY c DESC LIMIT 20",
+          "exactTime": 2100,
+          "approxTime": 190,
+          "exactResult": 100000000,
+          "approxResult": 99820000,
+          "tableRows": [
+            { "category": "CounterID=62", "exact": 14520300, "approx": 14480100, "error": 0.28 },
+            { "category": "CounterID=1704509", "exact": 8930200, "approx": 8890500, "error": 0.44 },
+            { "category": "CounterID=732797", "exact": 6780100, "approx": 6710300, "error": 1.03 },
+            { "category": "CounterID=598875", "exact": 5230400, "approx": 5180200, "error": 0.96 },
+            { "category": "CounterID=33080", "exact": 4120600, "approx": 4050100, "error": 1.71 },
+            { "category": "CounterID=38230", "exact": 3560200, "approx": 3490800, "error": 1.95 }
+          ]
+        },
+        {
+          "id": "cb100_2",
+          "name": "Age Distribution",
+          "sql": "SELECT Age, COUNT(*) FROM hits_100m WHERE Age > 0 GROUP BY Age ORDER BY Age",
+          "exactTime": 1950,
+          "approxTime": 170,
+          "exactResult": 45230100,
+          "approxResult": 44980200,
+          "tableRows": [
+            { "category": "18-24", "exact": 12340500, "approx": 12280100, "error": 0.49 },
+            { "category": "25-34", "exact": 15670200, "approx": 15520400, "error": 0.96 },
+            { "category": "35-44", "exact": 9450300, "approx": 9380100, "error": 0.74 },
+            { "category": "45-54", "exact": 4890100, "approx": 4780200, "error": 2.25 },
+            { "category": "55+", "exact": 2879000, "approx": 3019400, "error": 4.88 }
+          ]
+        }
+      ]
+    }
+  }
+}
