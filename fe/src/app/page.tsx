@@ -2,11 +2,11 @@
 
 import { Header } from '@/components/Header';
 import { QueryInputPanel } from '@/components/QueryInputPanel';
-import { PerformancePanel } from '@/components/PerformancePanel';
-import { AccuracyPanel } from '@/components/AccuracyPanel';
 import { ComboToggle } from '@/components/ComboToggle';
-import { ResultComparisonChart } from '@/components/ResultComparisonChart';
 import { HistoryPanel } from '@/components/HistoryPanel';
+import { OutputAnalysis } from '@/components/OutputAnalysis';
+import { AccuracyAnalysis } from '@/components/AccuracyAnalysisPanel';
+import { TimeAccuracyCurve } from '@/components/TimeAccuracyCurve';
 import { useQueryRunner } from '@/hooks/useQueryRunner';
 import { useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
@@ -64,15 +64,8 @@ export default function DashboardPage() {
     <main className="w-full min-h-screen p-6 md:p-10">
       <Header />
 
-      {/* Top Row: Performance | Input Query | Combo Toggle */}
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-[400px_1fr_420px] gap-5 items-start">
-        <PerformancePanel
-          exactTime={results?.exactTime ?? 0}
-          approxTime={results?.approxTime ?? 0}
-          speedup={results?.speedup ?? 0}
-          isLoading={isLoading}
-        />
-
+      {/* Row 1: Input Query | Combo Toggle */}
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-5 items-start">
         <QueryInputPanel
           onRun={handleRun}
           isLoading={isLoading}
@@ -88,20 +81,34 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Bottom Row: Accuracy | Result Comparison | History */}
-      <div className="mt-5 grid grid-cols-1 lg:grid-cols-[400px_1fr_420px] gap-5 items-start">
-        <AccuracyPanel
-          exactResult={results?.exactResult ?? 0}
-          approxResult={results?.approxResult ?? 0}
-          error={results?.error ?? 0}
+      {/* Row 2: Output Analysis — 3 metric cards */}
+      <div className="mt-8">
+        <OutputAnalysis
+          exactTime={results?.exactTime ?? 420}
+          approxTime={results?.approxTime ?? 38}
+          speedup={results?.speedup ?? 11.0}
+          exactResult={results?.exactResult ?? 1842301}
+          approxResult={results?.approxResult ?? 1840000}
+          error={results?.error ?? 2.3}
           isLoading={isLoading}
         />
+      </div>
 
-        <ResultComparisonChart
-          rows={results?.tableRows ?? []}
+      {/* Row 3: Accuracy Analysis — Error Rate full width */}
+      <div className="mt-8">
+        <AccuracyAnalysis
+          error={results?.error ?? 2.3}
           isLoading={isLoading}
         />
+      </div>
 
+      {/* Row 4: Time vs Accuracy Curve — full width */}
+      <div className="mt-8">
+        <TimeAccuracyCurve samplingRate={50} />
+      </div>
+
+      {/* Row 5: Query History */}
+      <div className="mt-8">
         <HistoryPanel
           onSelect={handleHistorySelect}
           refreshKey={historyRefresh}
