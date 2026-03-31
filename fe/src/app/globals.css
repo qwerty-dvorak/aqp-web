@@ -1,28 +1,32 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-bg-base: #000000;
-  --color-bg-card: #1A1516;
-  --color-bg-border: #2a2a2a;
-  --color-bg-panel: rgba(122, 101, 101, 0.2);
+@layer base {
+  :root {
+    --color-bg-base: #000000;
+    --color-bg-card: #1A1516;
+    --color-bg-border: #2a2a2a;
+    --color-bg-panel: rgba(122, 101, 101, 0.2);
 
-  --color-purple-vivid: #7500FF;
-  --color-purple-light: #9B59F5;
+    --color-purple-vivid: #7500FF;
+    --color-purple-light: #9B59F5;
 
-  --color-orange-vivid: #FD4B23;
-  --color-orange-bright: #FF3800;
+    --color-orange-vivid: #FD4B23;
+    --color-orange-bright: #FF3800;
 
-  --color-text-primary: #FFFFFF;
-  --color-text-muted: #AAAAAA;
+    --color-text-primary: #FFFFFF;
+    --color-text-muted: #AAAAAA;
 
-  --color-alert: #E63000;
+    --color-alert: #E63000;
 
-  --font-sans: 'Space Grotesk', system-ui, sans-serif;
-  --font-mono: 'GeistMono', monospace;
+    --font-sans: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'GeistMono', monospace;
 
-  --radius-panel: 50px;
-  --radius-card: 20px;
-  --radius-inner: 35px;
+    --radius-panel: 50px;
+    --radius-card: 20px;
+    --radius-inner: 35px;
+  }
 }
 
 @font-face {
