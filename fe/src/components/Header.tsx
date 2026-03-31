@@ -1,6 +1,10 @@
 'use client';
 
+import { useSession, signIn, signOut } from 'next-auth/react';
+
 export function Header() {
+  const { data: session, status } = useSession();
+
   return (
     <header className="flex items-center justify-between">
       <div className="flex items-center gap-1">
@@ -17,16 +21,48 @@ export function Header() {
           <path d="M101.935 75.0156V112.809H114.547V75.0156C114.547 71.5293 113.888 68.2627 112.569 65.2158C111.251 62.1396 109.449 59.459 107.164 57.1738C104.879 54.8887 102.198 53.0869 99.1221 51.7686C96.0752 50.4502 92.8086 49.791 89.3223 49.791C85.8359 49.791 82.5547 50.4502 79.4785 51.7686C76.4316 53.0869 73.7656 54.8887 71.4805 57.1738C69.2246 59.459 67.4375 62.1396 66.1191 65.2158C64.8008 68.2627 64.1416 71.5293 64.1416 75.0156V112.809H76.71V75.0156C76.71 73.2871 77.0322 71.6611 77.6768 70.1377C78.3506 68.585 79.2588 67.2373 80.4014 66.0947C81.5439 64.9521 82.877 64.0586 84.4004 63.4141C85.9531 62.7402 87.5938 62.4033 89.3223 62.4033C91.0508 62.4033 92.6768 62.7402 94.2002 63.4141C95.7529 64.0586 97.1006 64.9521 98.2432 66.0947C99.3857 67.2373 100.279 68.585 100.924 70.1377C101.598 71.6611 101.935 73.2871 101.935 75.0156Z" fill="#9747FF"/>
         </svg>
       </div>
+
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-bg-card border border-bg-border flex items-center justify-center">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="8" r="4" fill="white"/>
-            <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" fill="white"/>
-          </svg>
-        </div>
-        <span className="text-sm text-white uppercase tracking-widest font-medium">
-          Current User
-        </span>
+        {status === 'loading' ? (
+          <div className="w-9 h-9 rounded-full bg-bg-card border border-bg-border animate-pulse" />
+        ) : session?.user ? (
+          <>
+            {session.user.image ? (
+              <img
+                src={session.user.image}
+                alt=""
+                className="w-9 h-9 rounded-full border border-bg-border"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-full bg-purple-vivid flex items-center justify-center text-white text-sm font-bold">
+                {(session.user.name ?? 'U')[0].toUpperCase()}
+              </div>
+            )}
+            <span className="text-sm text-white uppercase tracking-widest font-medium max-w-[140px] truncate">
+              {session.user.name ?? session.user.email}
+            </span>
+            <button
+              onClick={() => signOut()}
+              className="text-[10px] text-text-muted hover:text-white uppercase tracking-widest transition-colors"
+            >
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => signIn('google')}
+            className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            <span className="text-sm text-white font-medium">Sign in</span>
+          </button>
+        )}
       </div>
     </header>
   );

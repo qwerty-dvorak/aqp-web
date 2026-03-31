@@ -8,8 +8,8 @@ export function useQueryRunner() {
   const [isLoading, setIsLoading] = useState(false);
 
   const run = useCallback(
-    async (query: string, mode: QueryMode, accuracyLevel: number, dataset: string) => {
-      if (!query.trim()) return;
+    async (query: string, mode: QueryMode, accuracyLevel: number, dataset: string): Promise<QueryResult | null> => {
+      if (!query.trim()) return null;
 
       setIsLoading(true);
       setResults(null);
@@ -27,8 +27,10 @@ export function useQueryRunner() {
 
         const data: QueryResult = await response.json();
         setResults(data);
+        return data;
       } catch (error) {
         console.error('Query execution failed:', error);
+        return null;
       } finally {
         setIsLoading(false);
       }

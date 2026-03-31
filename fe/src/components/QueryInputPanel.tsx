@@ -18,6 +18,8 @@ interface QueryInputPanelProps {
   isLoading: boolean;
   accuracy: number;
   mode: QueryMode;
+  externalQuery?: string;
+  externalDataset?: string;
 }
 
 const modes: { value: QueryMode; label: string }[] = [
@@ -26,7 +28,7 @@ const modes: { value: QueryMode; label: string }[] = [
   { value: 'both', label: 'COMBO' },
 ];
 
-export function QueryInputPanel({ onRun, isLoading, accuracy, mode: initialMode }: QueryInputPanelProps) {
+export function QueryInputPanel({ onRun, isLoading, accuracy, mode: initialMode, externalQuery, externalDataset }: QueryInputPanelProps) {
   const [query, setQuery] = useState('');
   const [dataset, setDataset] = useState('hits');
   const [mode, setMode] = useState<QueryMode>(initialMode);
@@ -38,6 +40,15 @@ export function QueryInputPanel({ onRun, isLoading, accuracy, mode: initialMode 
     if (savedQuery) setQuery(savedQuery);
     if (savedDataset) setDataset(savedDataset);
   }, []);
+
+  // Sync from history selection
+  useEffect(() => {
+    if (externalQuery) setQuery(externalQuery);
+  }, [externalQuery]);
+
+  useEffect(() => {
+    if (externalDataset) setDataset(externalDataset);
+  }, [externalDataset]);
 
   // Save to localStorage on change
   useEffect(() => {
