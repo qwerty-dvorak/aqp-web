@@ -10,5 +10,4 @@ dependencies = [
     "duckdb>=1.2",
 ]
 
-[project.scripts]
-serve = "uvicorn main:app --reload --port 8000"
+
