@@ -36,3 +36,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# backend
+be/data/
+__pycache__/
+*.pyc
+
+# pnpm / node
+fe/.next/
+fe/node_modules/

@@ -35,43 +35,31 @@ export function RecommendationPanel({
       <div className="bg-pink-200/80 rounded-inner p-5 min-h-[200px]">
         {isLoading ? (
           <div className="flex flex-col gap-3">
-            <div className="h-5 w-3/4 bg-pink-300/50 rounded animate-pulse" />
-            <div className="h-5 w-2/3 bg-pink-300/50 rounded animate-pulse" />
-            <div className="h-5 w-1/2 bg-pink-300/50 rounded animate-pulse" />
+            <div className="h-5 w-3/4 bg-pink-300/50 rounded-sm animate-pulse" />
+            <div className="h-5 w-2/3 bg-pink-300/50 rounded-sm animate-pulse" />
+            <div className="h-5 w-1/2 bg-pink-300/50 rounded-sm animate-pulse" />
           </div>
         ) : !recommendation ? (
           <div className="flex flex-col gap-3">
-            <RecommendationRow
-              label="ACCURACY"
-              value="—"
-              delay={0}
-            />
-            <RecommendationRow
-              label="ACCURACY"
-              value="—"
-              delay={0.05}
-            />
-            <RecommendationRow
-              label="COMBO"
-              value="—"
-              delay={0.1}
-            />
+            <RecommendationRow label="SPEED" value="—" delay={0} />
+            <RecommendationRow label="ACCURACY" value="—" delay={0.05} />
+            <RecommendationRow label="COMBO" value="—" delay={0.1} />
           </div>
         ) : (
           <div className="flex flex-col gap-3">
             <RecommendationRow
-              label="ACCURACY"
-              value={`${accuracy.toFixed(0)}%`}
+              label="SPEED"
+              value={`${speedup.toFixed(0)}%`}
               delay={0}
             />
             <RecommendationRow
               label="ACCURACY"
-              value={`${(100 - accuracy).toFixed(0)}%`}
+              value={`${accuracy.toFixed(0)}%`}
               delay={0.05}
             />
             <RecommendationRow
               label="COMBO"
-              value={`${speedup.toFixed(0)}%`}
+              value={`${Math.round((speedup + accuracy) / 2)}%`}
               delay={0.1}
             />
             {recommendation.warning && (
@@ -81,7 +69,7 @@ export function RecommendationPanel({
                 transition={{ delay: 0.2 }}
                 className="mt-2 text-xs text-red-700 bg-red-100 rounded-lg p-3 font-medium"
               >
-                ⚠ {recommendation.warning}
+                {recommendation.warning}
               </motion.div>
             )}
           </div>

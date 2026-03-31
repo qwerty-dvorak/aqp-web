@@ -1,11 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #000000;
+  --color-bg-card: #1A1516;
+  --color-bg-border: #2a2a2a;
+  --color-bg-panel: rgba(122, 101, 101, 0.2);
+
+  --color-purple-vivid: #7500FF;
+  --color-purple-light: #9B59F5;
+
+  --color-orange-vivid: #FD4B23;
+  --color-orange-bright: #FF3800;
+
+  --color-text-primary: #FFFFFF;
+  --color-text-muted: #AAAAAA;
+
+  --color-alert: #E63000;
+
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'GeistMono', monospace;
+
+  --radius-panel: 50px;
+  --radius-card: 20px;
+  --radius-inner: 35px;
+}
 
 @font-face {
   font-family: 'GeistMono';
-  src: url('../components/geist-mono/GeistMono-Regular.woff2') format('woff2'),
-       url('../components/geist-mono/GeistMono-Regular.ttf') format('truetype');
+  src: url('/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2'),
+       url('/fonts/geist-mono/GeistMono-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -13,8 +36,8 @@
 
 @font-face {
   font-family: 'GeistMono';
-  src: url('../components/geist-mono/GeistMono-Medium.woff2') format('woff2'),
-       url('../components/geist-mono/GeistMono-Medium.ttf') format('truetype');
+  src: url('/fonts/geist-mono/GeistMono-Medium.woff2') format('woff2'),
+       url('/fonts/geist-mono/GeistMono-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -22,8 +45,8 @@
 
 @font-face {
   font-family: 'GeistMono';
-  src: url('../components/geist-mono/GeistMono-SemiBold.woff2') format('woff2'),
-       url('../components/geist-mono/GeistMono-SemiBold.ttf') format('truetype');
+  src: url('/fonts/geist-mono/GeistMono-SemiBold.woff2') format('woff2'),
+       url('/fonts/geist-mono/GeistMono-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -31,8 +54,8 @@
 
 @font-face {
   font-family: 'GeistMono';
-  src: url('../components/geist-mono/GeistMono-Bold.woff2') format('woff2'),
-       url('../components/geist-mono/GeistMono-Bold.ttf') format('truetype');
+  src: url('/fonts/geist-mono/GeistMono-Bold.woff2') format('woff2'),
+       url('/fonts/geist-mono/GeistMono-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -40,8 +63,8 @@
 
 @font-face {
   font-family: 'GeistMono';
-  src: url('../components/geist-mono/GeistMono-Black.woff2') format('woff2'),
-       url('../components/geist-mono/GeistMono-Black.ttf') format('truetype');
+  src: url('/fonts/geist-mono/GeistMono-Black.woff2') format('woff2'),
+       url('/fonts/geist-mono/GeistMono-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;

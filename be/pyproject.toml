@@ -1,0 +1,14 @@
+[project]
+name = "be"
+version = "0.1.0"
+description = "aproql — Approximate Query Processing backend"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
+    "duckdb>=1.2",
+]
+
+[project.scripts]
+serve = "uvicorn main:app --reload --port 8000"
